@@ -4,6 +4,7 @@ import {
   useGetLiquidityTokenTotalSupply,
   useGetPoolLiquidity,
   useGetTokenReserve,
+  useRemoveLiquidity,
 } from "../hooks/pool";
 import { getReverseTokens } from "../utils/utils";
 import TokenName from "../abi/tokenAddressToName.json";
@@ -21,9 +22,9 @@ const MyPositions = ({ poolAddress }) => {
 
   const Tokens = getReverseTokens(TokenName);
 
-  const closePosition = () => {
+  const closePosition = () => {};
 
-  }
+  const { removeLiquidity } = useRemoveLiquidity(poolAddress);
 
   // -----------------------
   // LP Balance
@@ -81,6 +82,9 @@ const MyPositions = ({ poolAddress }) => {
       ? reserveToken1
       : BigInt(reserveToken1 ?? 0);
 
+  const safeLiquidity =
+    typeof liquidity === "bigint" ? liquidity : BigInt(liquidity ?? 0);
+
   // -----------------------
   // User Share Calculation
   // -----------------------
@@ -91,7 +95,7 @@ const MyPositions = ({ poolAddress }) => {
   if (safeSupply > 0n && safeBalance > 0n) {
     userShare0 = (safeBalance * safeReserve0) / safeSupply;
     userShare1 = (safeBalance * safeReserve1) / safeSupply;
-    userShareTotal = (safeBalance * liquidity) / safeSupply;
+    userShareTotal = (safeBalance * safeLiquidity) / safeSupply;
   }
 
   // -----------------------
@@ -143,7 +147,7 @@ const MyPositions = ({ poolAddress }) => {
       <div>${formatEther(userShareTotal)}</div>
       <div>${formatEther(liquidity)}</div>
       <div className="w-fit items-end">
-        <ActionBtn text="close" action={closePosition()}/>
+        <ActionBtn text="close" action={() => removeLiquidity(balance)} />
       </div>
     </div>
   );

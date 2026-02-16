@@ -112,21 +112,26 @@ contract LiquidityPool is LiquidityToken, ReentrancyGuard, ERC165 {
         _mint(msg.sender, liquidityTokens);
     }
 
-    function removeLiquidity(uint256 liquidityTokens) public nonReentrant {
-        // your share (percentage) = liquidityTokens/totalSupply
-        // amount you get = share * totalLiquidity
+function removeLiquidity(uint256 liquidityTokens) public nonReentrant {
+    uint256 total = totalSupply();
+    require(total > 0, "No liquidity");
+    require(balanceOf(msg.sender) >= liquidityTokens, "Not enough LP tokens");
 
-        uint256 yourOwnedShare = liquidityTokens / totalSupply();
+    uint256 reserve0 = sTokenToReserve[address(I_TOKEN0)];
+    uint256 reserve1 = sTokenToReserve[address(I_TOKEN1)];
 
-        _burn(msg.sender, liquidityTokens);
-        updateLiquidity(
-            (sTokenToReserve[address(I_TOKEN0)] - yourOwnedShare * (sTokenToReserve[address(I_TOKEN0)])),
-            (sTokenToReserve[address(I_TOKEN1)] - yourOwnedShare * (sTokenToReserve[address(I_TOKEN0)]))
-        );
+    uint256 amount0 = (liquidityTokens * reserve0) / total;
+    uint256 amount1 = (liquidityTokens * reserve1) / total;
 
-        I_TOKEN0.transfer(msg.sender, yourOwnedShare * (sTokenToReserve[address(I_TOKEN0)]));
-        I_TOKEN1.transfer(msg.sender, yourOwnedShare * (sTokenToReserve[address(I_TOKEN1)]));
-    }
+    _burn(msg.sender, liquidityTokens);
+
+    sTokenToReserve[address(I_TOKEN0)] = reserve0 - amount0;
+    sTokenToReserve[address(I_TOKEN1)] = reserve1 - amount1;
+
+    require(I_TOKEN0.transfer(msg.sender, amount0), "Token0 transfer failed");
+    require(I_TOKEN1.transfer(msg.sender, amount1), "Token1 transfer failed");
+}
+
 
     function supportsInterface(bytes4 interfaceId) public pure override returns (bool) {
         return false;

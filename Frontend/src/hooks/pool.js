@@ -157,5 +157,33 @@ export function useGetLiquidityTokenOfUser(poolAddress, userAddress) {
   };
 }
 
+export function useRemoveLiquidity(poolAddress) {
+    const [hash, setHash] = useState(null);
+
+  const { address: user } = useAccount();
+  const { writeContractAsync } = useWriteContract();
+
+  const { isLoading: isConfirming, isSuccess } =
+    useWaitForTransactionReceipt({ hash });
+    const removeLiquidity = async (userLPTokens) => {
+    if (!user) return;
+
+    const txHash = await writeContractAsync({
+      address: poolAddress,
+      abi: LiquidityPool,
+      functionName: "removeLiquidity",
+      args: [userLPTokens],
+    });
+
+    setHash(txHash);
+  };
+
+  return {
+    removeLiquidity,
+    isConfirming,
+    isSuccess,
+  }
+}
+
 
 
