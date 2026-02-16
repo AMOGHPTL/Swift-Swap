@@ -1,20 +1,17 @@
-import { formatEther, isAddress } from "viem";
 import { useChainId } from "wagmi";
-import { useParams } from "react-router-dom";
-import { getReverseTokens, shorten } from "../utils/utils";
+import { getReverseTokens } from "../utils/utils";
 import TokenName from "../abi/tokenAddressToName.json";
 import PoolFactoryAddresses from "../abi/LiquidityPoolFactoryAddresses.json";
+import { isAddress } from "viem";
+import { useGetPoolLiquidity } from "../hooks/pool";
 import { useGetPoolInfoWithPoolAddress } from "../hooks/poolFactory";
 import arrow from "../assets/arrow.svg";
-import { useGetPoolLiquidity, useGetTokenReserve } from "../hooks/pool";
-import swap from "../assets/swap.svg";
-import plus from "../assets/plus.svg";
-import Btn from "../components/low-level/Btn";
+import { shorten } from "../utils/utils";
+import Input from "./low-level/input";
 
-const PoolPage = () => {
-  const { address } = useParams();
-
+const PoolSwap = ({ address }) => {
   const Tokens = getReverseTokens(TokenName);
+
   const chainId = useChainId();
   const factoryAddress = PoolFactoryAddresses[chainId];
 
@@ -28,9 +25,6 @@ const PoolPage = () => {
     address,
     enabled,
   );
-
-  const reserveToken0 = useGetTokenReserve(address, data?.token0).reserve;
-  const reserveToken1 = useGetTokenReserve(address, data?.token1).reserve;
 
   if (!enabled) return null;
   if (isLoading || isLoadingLiquidity) return <div>Loading {address}...</div>;
@@ -65,49 +59,44 @@ const PoolPage = () => {
             <p>{Tokens[data.token1]}</p>
           </div>
         </div>
-        <div className="flex flex-col gap-[30px]">
-          <p className="text-2xl">Stats</p>
-          <div className="flex  justify-between">
-            <div className="flex flex-col gap-[3px]">
-              <p className="text-xl">Balances</p>
-              <p>
-                {Tokens[data.token0]} :{" "}
-                {reserveToken0 ? formatEther(reserveToken0) : null}
-              </p>
-              <p>
-                {Tokens[data.token1]} :{" "}
-                {reserveToken1 ? formatEther(reserveToken1) : null}
-              </p>
-            </div>
-            <div className="flex flex-col gap-[3px]">
-              <p className="text-xl">TVL</p>
-              <p>${formatEther(liquidity?.toString())}</p>
-            </div>
-            <div className="flex flex-col gap-[3px]">
-              <p className="text-xl">Fee</p>
-              <p>{data.fee} ETH</p>
-            </div>
-          </div>
+      </div>
+      <div className="flex flex-col gap-[30px]">
+        <div>
+          <p className="text-2xl">Swap tokens</p>
         </div>
-        <div className="flex items-center gap-[50px]">
-          <Btn
-            img={swap}
-            text="swap"
-            to="Swap"
-            poolAddress={address}
-            disabled={formatEther(liquidity?.toString()) == 0}
+        <div className="flex flex-col gap-[20px] max-w-[800px]">
+          <Input
+            token={Tokens[data.token0]}
+            max={20}
+            amount={0}
+            setAmount={0}
           />
-          <Btn
-            img={plus}
-            text="add liquidity"
-            to="Liquidity"
-            poolAddress={address}
-            disabled={false}
+          <Input
+            token={Tokens[data.token1]}
+            max={20}
+            amount={0}
+            setAmount={0}
           />
+        </div>
+        <div>
+          <p>Pool swap Fee : {data.fee} ETH</p>
+          <p>
+            {Tokens[data.token0]} amount: 
+          </p>
+          <p>
+            {Tokens[data.token1]} amount:
+          </p>
+        </div>
+        <div>
+          <div>
+            <button className="bg-blue-700 px-[15px] py-[5px] cursor-pointer rounded-xl">
+              swap
+            </button>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default PoolPage;
+export default PoolSwap;

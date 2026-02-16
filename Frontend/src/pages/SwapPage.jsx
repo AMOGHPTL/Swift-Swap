@@ -1,7 +1,21 @@
+import { useParams } from "react-router-dom";
+import SelectSwap from "../components/SelectSwap";
+import PoolSwap from "../components/PoolSwap";
+
 const SwapPage = () => {
-    return ( <div>
-        <p className="text-3xl">This is the swap page</p>
-    </div> );
-}
- 
+  const { address } = useParams();
+  if (address == "all") {
+    return (
+      <div>
+        <SelectSwap address={address} />
+      </div>
+    );
+  }
+  return (
+    <div>
+      <PoolSwap address={address} />
+    </div>
+  );
+};
+
 export default SwapPage;

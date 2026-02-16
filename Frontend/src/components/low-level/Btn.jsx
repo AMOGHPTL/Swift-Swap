@@ -1,16 +1,17 @@
 import { useNavigate } from "react-router-dom";
 
-const Btn = ({ img, text, to, poolAddress }) => {
+const Btn = ({ img, text, to, poolAddress, disabled }) => {
   const navigate = useNavigate();
 
   return (
-    <div
+    <button
+      disabled={disabled}
       onClick={() => navigate(`/${to}/${poolAddress}`)}
-      className="flex gap-[10px] items-center cursor-pointer bg-[#8147e6] px-[18px] py-[5px] rounded-full"
+      className="flex gap-[10px] items-center cursor-pointer bg-[#8147e6] px-[18px] py-[5px] rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
     >
       <img src={img} alt="" className="w-[18px]" />
       <p>{text}</p>
-    </div>
+    </button>
   );
 };
 
