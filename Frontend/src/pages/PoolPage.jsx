@@ -72,20 +72,24 @@ const PoolPage = () => {
               <p className="text-xl">Balances</p>
               <p>
                 {Tokens[data.token0]} :{" "}
-                {reserveToken0 ? formatEther(reserveToken0) : null}
+                {reserveToken0
+                  ? Number(formatEther(reserveToken0)).toFixed(2)
+                  : null}
               </p>
               <p>
                 {Tokens[data.token1]} :{" "}
-                {reserveToken1 ? formatEther(reserveToken1) : null}
+                {reserveToken1
+                  ? Number(formatEther(reserveToken1)).toFixed(2)
+                  : null}
               </p>
             </div>
             <div className="flex flex-col gap-[3px]">
               <p className="text-xl">TVL</p>
-              <p>${formatEther(liquidity?.toString())}</p>
+              <p>${Number(formatEther(liquidity?.toString())).toFixed(2)}</p>
             </div>
             <div className="flex flex-col gap-[3px]">
               <p className="text-xl">Fee</p>
-              <p>{data.fee} ETH</p>
+              <p>{data.fee} Tokens</p>
             </div>
           </div>
         </div>

@@ -56,7 +56,7 @@ const PoolItem = ({ address }) => {
         </div>
       </div>
       <div>${data.fee}</div>
-      <div>${liquidity ? formatEther(liquidity) : 0}</div>
+      <div>${liquidity ? Number(formatEther(liquidity)).toFixed(2) : 0}</div>
     </div>
   );
 };

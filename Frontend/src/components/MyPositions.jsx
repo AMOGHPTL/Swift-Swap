@@ -139,13 +139,13 @@ const MyPositions = ({ poolAddress }) => {
       </div>
 
       {/* User Share Token0 */}
-      <div>${formatEther(userShare0)}</div>
+      <div>${Number(formatEther(userShare0)).toFixed(2)}</div>
 
       {/* User Share Token1 */}
-      <div>${formatEther(userShare1)}</div>
+      <div>${Number(formatEther(userShare1)).toFixed(2)}</div>
 
-      <div>${formatEther(userShareTotal)}</div>
-      <div>${formatEther(liquidity)}</div>
+      <div>${Number(formatEther(userShareTotal)).toFixed(2)}</div>
+      <div>${Number(formatEther(liquidity)).toFixed(2)}</div>
       <div className="w-fit items-end">
         <ActionBtn text="close" action={() => removeLiquidity(balance)} />
       </div>

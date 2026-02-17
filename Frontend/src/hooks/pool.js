@@ -185,5 +185,50 @@ export function useRemoveLiquidity(poolAddress) {
   }
 }
 
+export function useSwap(poolAddress) {
+      const [hash, setHash] = useState(null);
+
+  const { address: user } = useAccount();
+  const publicClient = usePublicClient();
+  const { writeContractAsync } = useWriteContract();
+
+  const { isLoading: isConfirming, isSuccess } =
+    useWaitForTransactionReceipt({ hash });
+    const swap = async (tokenIn, amountIn) => {
+    if (!tokenIn || !amountIn) return;
+
+        const allowance0 = await publicClient.readContract({
+      address: tokenIn,
+      abi: erc20Abi,
+      functionName: "allowance",
+      args: [user, poolAddress],
+    });
+
+    if (allowance0 < amountIn) {
+      await writeContractAsync({
+        address: tokenIn,
+        abi: erc20Abi,
+        functionName: "approve",
+        args: [poolAddress, amountIn],
+      });
+    }
+
+    const txHash = await writeContractAsync({
+      address: poolAddress,
+      abi: LiquidityPool,
+      functionName: "swap",
+      args: [tokenIn, amountIn],
+    });
+
+    setHash(txHash);
+  };
+
+  return {
+    swap,
+    isConfirming,
+    isSuccess,
+  }
+}
+
 
 

@@ -86,12 +86,12 @@ const LiquidityPage = () => {
             />
           </div>
           <div>
-            <p>Pool swap Fee : {data.fee} ETH</p>
+            <p>Pool swap Fee : {data.fee} Tokens</p>
             <p>
-              {Tokens[data.token0]} amount: {formatEther(amount0)}
+              {Tokens[data.token0]} tokens: {amount0}
             </p>
             <p>
-              {Tokens[data.token1]} amount: {formatEther(amount1)}
+              {Tokens[data.token1]} tokens: {amount1}
             </p>
           </div>
           <div>
