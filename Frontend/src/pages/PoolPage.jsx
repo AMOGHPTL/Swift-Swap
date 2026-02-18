@@ -37,7 +37,7 @@ const PoolPage = () => {
   if (isError) return <div>Error loading {address}</div>;
 
   return (
-    <div className="p-[80px] max-w-[800px]">
+    <div className="p-[80px] max-w-[70%]">
       <div className="flex items-center gap-[10px]">
         <p className="text-gray-400">Pools</p>
         <img src={arrow} alt="" className="w-[10px] rotate-270" />
@@ -65,49 +65,51 @@ const PoolPage = () => {
             <p>{Tokens[data.token1]}</p>
           </div>
         </div>
-        <div className="flex flex-col gap-[30px]">
-          <p className="text-2xl">Stats</p>
-          <div className="flex  justify-between">
-            <div className="flex flex-col gap-[3px]">
-              <p className="text-xl">Balances</p>
-              <p>
-                {Tokens[data.token0]} :{" "}
-                {reserveToken0
-                  ? Number(formatEther(reserveToken0)).toFixed(2)
-                  : null}
-              </p>
-              <p>
-                {Tokens[data.token1]} :{" "}
-                {reserveToken1
-                  ? Number(formatEther(reserveToken1)).toFixed(2)
-                  : null}
-              </p>
-            </div>
-            <div className="flex flex-col gap-[3px]">
-              <p className="text-xl">TVL</p>
-              <p>${Number(formatEther(liquidity?.toString())).toFixed(2)}</p>
-            </div>
-            <div className="flex flex-col gap-[3px]">
-              <p className="text-xl">Fee</p>
-              <p>{data.fee} Tokens</p>
+        <div className="flex flex-col bg-black p-[30px] rounded-3xl gap-[60px]">
+          <div className="flex flex-col gap-[30px]">
+            <p className="text-2xl font-semibold">Pool Info</p>
+            <div className="flex  justify-between">
+              <div className="flex flex-col gap-[3px]">
+                <p className="text-xl">Balances</p>
+                <p>
+                  {Tokens[data.token0]} :{" "}
+                  {reserveToken0
+                    ? Number(formatEther(reserveToken0)).toFixed(2)
+                    : null}
+                </p>
+                <p>
+                  {Tokens[data.token1]} :{" "}
+                  {reserveToken1
+                    ? Number(formatEther(reserveToken1)).toFixed(2)
+                    : null}
+                </p>
+              </div>
+              <div className="flex flex-col gap-[3px]">
+                <p className="text-xl">TVL</p>
+                <p>${Number(formatEther(liquidity?.toString())).toFixed(2)}</p>
+              </div>
+              <div className="flex flex-col gap-[3px]">
+                <p className="text-xl">Fee</p>
+                <p>{data.fee} Tokens</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="flex items-center gap-[50px]">
-          <Btn
-            img={swap}
-            text="swap"
-            to="Swap"
-            poolAddress={address}
-            disabled={formatEther(liquidity?.toString()) == 0}
-          />
-          <Btn
-            img={plus}
-            text="add liquidity"
-            to="Liquidity"
-            poolAddress={address}
-            disabled={false}
-          />
+          <div className="flex items-center gap-[50px]">
+            <Btn
+              img={swap}
+              text="swap"
+              to="Swap"
+              poolAddress={address}
+              disabled={formatEther(liquidity?.toString()) == 0}
+            />
+            <Btn
+              img={plus}
+              text="add liquidity"
+              to="Liquidity"
+              poolAddress={address}
+              disabled={false}
+            />
+          </div>
         </div>
       </div>
     </div>

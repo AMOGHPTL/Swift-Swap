@@ -231,7 +231,7 @@
         "name": "supportsInterface",
         "inputs": [
             {
-                "name": "interfaceId",
+                "name": "",
                 "type": "bytes4",
                 "internalType": "bytes4"
             }

@@ -139,7 +139,7 @@ const PoolSwap = ({ address }) => {
         </div>
       </div>
 
-      <div className="flex flex-col bg-black p-[20px] rounded-4xl gap-[20px] max-w-[70%]">
+      <div className="flex flex-col bg-black p-[30px] rounded-4xl gap-[20px] max-w-[70%]">
         <div>
           <p className="text-2xl">Swap tokens</p>
         </div>
@@ -169,11 +169,11 @@ const PoolSwap = ({ address }) => {
             <div>
               <p>Pool swap Fee : {data.fee.toString()} tokens</p>
               <p>
-                {Tokens[data.token0]} amount:{" "}
+                {Tokens[data.token0]} tokens:{" "}
                 {Number(formatEther(reserveToken0)).toFixed(2)}
               </p>
               <p>
-                {Tokens[data.token1]} amount:{" "}
+                {Tokens[data.token1]} tokens:{" "}
                 {Number(formatEther(reserveToken1)).toFixed(2)}
               </p>
             </div>

@@ -72,3 +72,47 @@ export function useGetPoolInfoWithPoolAddress(
     },
   });
 }
+
+export function useGetTokenPair(
+  poolFactoryAddress,
+  tokenAddress,
+  watch = true
+){
+  return useReadContract({
+    address: poolFactoryAddress,
+    abi: LiquidityPoolFactory,
+    functionName: "getTokenPair",
+    args: tokenAddress ? [tokenAddress] : undefined,
+    query: {
+      enabled: !!poolFactoryAddress && !!tokenAddress,
+      refetchInterval: watch ? 3000 : false,
+    },
+  })
+}
+
+export function useGetTokenPairKeys(poolFactoryAddress, watch=true){
+    return useReadContract({
+    address: poolFactoryAddress,
+    abi: LiquidityPoolFactory,
+    functionName: "getTokenPairKeys",
+    args: [],
+    query: {
+      enabled: !!poolFactoryAddress,
+      refetchInterval: watch ? 3000 : false,
+    },
+  })
+}
+
+export function useGetPoolInfo(poolFactoryAddress, token0, token1, watch=true){
+   return useReadContract({
+    address: poolFactoryAddress,
+    abi: LiquidityPoolFactory,
+    functionName: "getPoolInfo",
+    args: [token0, token1],
+    query: {
+      enabled: !!poolFactoryAddress && !!token0 && !!token1,
+      refetchInterval: watch ? 3000 : false,
+    },
+  })
+}
+

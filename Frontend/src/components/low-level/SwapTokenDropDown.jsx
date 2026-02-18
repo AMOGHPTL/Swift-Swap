@@ -1,19 +1,17 @@
 import arrow from "../../assets/arrow.svg";
-import Tokens from "../../abi/tokenAddressToName.json";
 
-const TokenDropDown = ({
+const SwapTokenDropDown = ({
+  tokens,
   token,
-  otherToken,
   setToken,
   isOpen,
-  setOpen,
-  setShowError,
+  setIsOpen
 }) => {
   return (
     <div>
       <div
-        onClick={() => setOpen(!isOpen)}
-        className={`flex w-[200px] h-[50px] justify-between gap-[12px] items-center cursor-pointer rounded-[8px] border-[2px] border-gray-500 px-[24px] py-[10px] ${isOpen ? "border-b-0 rounded-b-none" : ""}`}
+        onClick={() => setIsOpen(!isOpen)}
+        className={`flex w-[200px] h-[50px] justify-between gap-[12px] items-center cursor-pointer rounded-[8px] border-[2px] border-gray-500 px-[24px] py-[10px] ${isOpen ? "border-b-0 rounded-b-none" : ""} ${token?"":"bg-pink-500"}`}
       >
         <div className="flex items-center gap-[6px]">
           <img
@@ -21,7 +19,7 @@ const TokenDropDown = ({
             alt=""
             className="w-[20px]"
           />
-          <p className="text-[20px]">{token}</p>
+          <p className="text-[20px]">{token?token:"select"}</p>
         </div>
         <img
           src={arrow}
@@ -31,16 +29,9 @@ const TokenDropDown = ({
       </div>
       {isOpen && (
         <div className="absolute border-[2px] w-[200px] border-t-0 border-gray-500 transition duration-150">
-          {Object.keys(Tokens)?.map((Token) => (
+          {tokens?.map((Token) => (
             <div
-              onClick={() => {
-                if (Token !== otherToken) {
-                  setToken(Token);
-                  setShowError(false);
-                } else {
-                  setShowError(true);
-                }
-              }}
+              onClick={() => setToken(Token)}
               className="flex bg-gray-800 border-[2px] border-gray-900 gap-[12px] items-center cursor-pointer px-[24px] py-[10px]"
             >
               <img
@@ -57,4 +48,4 @@ const TokenDropDown = ({
   );
 };
 
-export default TokenDropDown;
+export default SwapTokenDropDown;

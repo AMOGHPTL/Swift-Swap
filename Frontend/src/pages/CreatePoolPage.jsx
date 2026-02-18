@@ -5,6 +5,7 @@ import { useState } from "react";
 import TokenDropDown from "../components/low-level/TokenDropDown";
 import PoolCard from "../components/low-level/PoolCard";
 import TokenName from "../abi/tokenAddressToName.json";
+import { formatEther } from "viem";
 
 const CreatePoolPage = () => {
   const cardano = "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9";
@@ -22,7 +23,7 @@ const CreatePoolPage = () => {
 
   const [token0, setToken0] = useState("cardano");
   const [token1, setToken1] = useState("matic");
-  const [fee, setFee] = useState(0);
+  const [fee, setFee] = useState(0n);
 
   const [token0IsOpen, setToken0IsOpen] = useState(false);
   const [token1IsOpen, setToken1IsOpen] = useState(false);
@@ -34,7 +35,7 @@ const CreatePoolPage = () => {
       <div>
         <p className="text-5xl">Create pool</p>
       </div>
-      <div className="flex gap-[100px] border-[2px] border-gray-500 p-[30px] rounded-xl">
+      <div className="flex gap-[100px] bg-black p-[30px] rounded-xl">
         <div className="flex flex-col gap-[30px] min-w-[500px] min-h-[300px]">
           <p className="text-3xl">Select Token Pair</p>
           <div className="flex flex-col gap-[50px]">
@@ -84,17 +85,13 @@ const CreatePoolPage = () => {
             <div className="font-light text-gray-400">
               <p>token 1 : {token0}</p>
               <p>token 2 : {token1}</p>
-              <p>fee : {fee / 1000000000000000000}</p>
+              <p>fee : {fee}</p>
             </div>
           </div>
           <div>
             <button
               onClick={() =>
-                createPool(
-                  TokenName[token0],
-                  TokenName[token1],
-                  fee / 1000000000000000000,
-                )
+                createPool(TokenName[token0], TokenName[token1], fee)
               }
               className="bg-blue-700 px-[15px] py-[5px] cursor-pointer rounded-xl"
             >

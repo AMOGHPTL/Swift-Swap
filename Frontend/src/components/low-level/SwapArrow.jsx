@@ -1,8 +1,8 @@
 import arrow from "../../assets/arrow.svg";
 
-const SwapArrow = ({action}) => {
+const SwapArrow = ({action, vertical=false}) => {
   return (
-    <div onClick={()=>action()} className="absolute cursor-pointer right-[46%] top-[43%] flex w-fit justify-between items-center p-[10px] bg-gray-600 backdrop-blur-sm border-[5px] border-[#121212] rounded-[15px]">
+    <div onClick={()=>action()} className={`absolute cursor-pointer right-[46%] top-[43%] flex w-fit justify-between items-center p-[10px] bg-gray-600 backdrop-blur-sm border-[5px] border-[#121212] rounded-[15px] ${vertical?"rotate-270":""}`}>
       <img src={arrow} alt="" className="w-[20px]" />
     </div>
   );

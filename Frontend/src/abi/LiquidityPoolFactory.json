@@ -1,251 +1,326 @@
- [
-        {
-            "type": "function",
-            "name": "createPool",
-            "inputs": [
-                {
-                    "name": "token0",
-                    "type": "address",
-                    "internalType": "address"
-                },
-                {
-                    "name": "token1",
-                    "type": "address",
-                    "internalType": "address"
-                },
-                {
-                    "name": "fee",
-                    "type": "uint256",
-                    "internalType": "uint256"
-                }
-            ],
-            "outputs": [],
-            "stateMutability": "nonpayable"
-        },
-        {
-            "type": "function",
-            "name": "getAllPools",
-            "inputs": [],
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "address[]",
-                    "internalType": "address[]"
-                }
-            ],
-            "stateMutability": "view"
-        },
-        {
-            "type": "function",
-            "name": "getPool",
-            "inputs": [
-                {
-                    "name": "token0",
-                    "type": "address",
-                    "internalType": "address"
-                },
-                {
-                    "name": "token1",
-                    "type": "address",
-                    "internalType": "address"
-                },
-                {
-                    "name": "fee",
-                    "type": "uint256",
-                    "internalType": "uint256"
-                }
-            ],
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "address",
-                    "internalType": "address"
-                }
-            ],
-            "stateMutability": "view"
-        },
-        {
-            "type": "function",
-            "name": "getPoolInfo",
-            "inputs": [
-                {
-                    "name": "token0",
-                    "type": "address",
-                    "internalType": "address"
-                },
-                {
-                    "name": "token1",
-                    "type": "address",
-                    "internalType": "address"
-                }
-            ],
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "tuple",
-                    "internalType": "struct LiquidityPoolFactory.PoolStruct",
-                    "components": [
-                        {
-                            "name": "poolAddress",
-                            "type": "address",
-                            "internalType": "address"
-                        },
-                        {
-                            "name": "token0",
-                            "type": "address",
-                            "internalType": "address"
-                        },
-                        {
-                            "name": "token1",
-                            "type": "address",
-                            "internalType": "address"
-                        },
-                        {
-                            "name": "fee",
-                            "type": "uint256",
-                            "internalType": "uint256"
-                        }
-                    ]
-                }
-            ],
-            "stateMutability": "view"
-        },
-        {
-            "type": "function",
-            "name": "getPoolWithAddress",
-            "inputs": [
-                {
-                    "name": "poolAddress",
-                    "type": "address",
-                    "internalType": "address"
-                }
-            ],
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "tuple",
-                    "internalType": "struct LiquidityPoolFactory.PoolStruct",
-                    "components": [
-                        {
-                            "name": "poolAddress",
-                            "type": "address",
-                            "internalType": "address"
-                        },
-                        {
-                            "name": "token0",
-                            "type": "address",
-                            "internalType": "address"
-                        },
-                        {
-                            "name": "token1",
-                            "type": "address",
-                            "internalType": "address"
-                        },
-                        {
-                            "name": "fee",
-                            "type": "uint256",
-                            "internalType": "uint256"
-                        }
-                    ]
-                }
-            ],
-            "stateMutability": "view"
-        },
-        {
-            "type": "function",
-            "name": "sGetPool",
-            "inputs": [
-                {
-                    "name": "",
-                    "type": "address",
-                    "internalType": "address"
-                },
-                {
-                    "name": "",
-                    "type": "address",
-                    "internalType": "address"
-                }
-            ],
-            "outputs": [
-                {
-                    "name": "poolAddress",
-                    "type": "address",
-                    "internalType": "address"
-                },
-                {
-                    "name": "token0",
-                    "type": "address",
-                    "internalType": "address"
-                },
-                {
-                    "name": "token1",
-                    "type": "address",
-                    "internalType": "address"
-                },
-                {
-                    "name": "fee",
-                    "type": "uint256",
-                    "internalType": "uint256"
-                }
-            ],
-            "stateMutability": "view"
-        },
-        {
-            "type": "function",
-            "name": "sPoolToPoolInfo",
-            "inputs": [
-                {
-                    "name": "",
-                    "type": "address",
-                    "internalType": "address"
-                }
-            ],
-            "outputs": [
-                {
-                    "name": "poolAddress",
-                    "type": "address",
-                    "internalType": "address"
-                },
-                {
-                    "name": "token0",
-                    "type": "address",
-                    "internalType": "address"
-                },
-                {
-                    "name": "token1",
-                    "type": "address",
-                    "internalType": "address"
-                },
-                {
-                    "name": "fee",
-                    "type": "uint256",
-                    "internalType": "uint256"
-                }
-            ],
-            "stateMutability": "view"
-        },
-        {
-            "type": "function",
-            "name": "sPoolsList",
-            "inputs": [
-                {
-                    "name": "",
-                    "type": "uint256",
-                    "internalType": "uint256"
-                }
-            ],
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "address",
-                    "internalType": "address"
-                }
-            ],
-            "stateMutability": "view"
-        },
-        {
-            "type": "error",
-            "name": "LiquidityPoolFactory__PoolExists",
-            "inputs": []
-        }
-    ]
+[
+    {
+        "type": "function",
+        "name": "createPool",
+        "inputs": [
+            {
+                "name": "token0",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "token1",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "fee",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "getAllPools",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address[]",
+                "internalType": "address[]"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "getPool",
+        "inputs": [
+            {
+                "name": "token0",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "token1",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "fee",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "getPoolInfo",
+        "inputs": [
+            {
+                "name": "token0",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "token1",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "tuple",
+                "internalType": "struct LiquidityPoolFactory.PoolStruct",
+                "components": [
+                    {
+                        "name": "poolAddress",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "token0",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "token1",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "fee",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    }
+                ]
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "getPoolWithAddress",
+        "inputs": [
+            {
+                "name": "poolAddress",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "tuple",
+                "internalType": "struct LiquidityPoolFactory.PoolStruct",
+                "components": [
+                    {
+                        "name": "poolAddress",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "token0",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "token1",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "fee",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    }
+                ]
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "getTokenPair",
+        "inputs": [
+            {
+                "name": "token",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address[]",
+                "internalType": "address[]"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "getTokenPairKeys",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address[]",
+                "internalType": "address[]"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "sGetPool",
+        "inputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "poolAddress",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "token0",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "token1",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "fee",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "sPoolToPoolInfo",
+        "inputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "poolAddress",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "token0",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "token1",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "fee",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "sPoolsList",
+        "inputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "sTokenPairKeys",
+        "inputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "sTokenPairs",
+        "inputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "error",
+        "name": "LiquidityPoolFactory__PoolExists",
+        "inputs": []
+    }
+]

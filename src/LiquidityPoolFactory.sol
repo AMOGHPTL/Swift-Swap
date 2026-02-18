@@ -14,6 +14,8 @@ contract LiquidityPoolFactory {
     address[] public sPoolsList;
     mapping(address => PoolStruct) public sPoolToPoolInfo;
     mapping(address => mapping(address => PoolStruct)) public sGetPool;
+    mapping(address => address[]) public sTokenPairs;
+    address[] public sTokenPairKeys;
 
     // tokens in pools
     struct PoolStruct {
@@ -48,6 +50,10 @@ contract LiquidityPoolFactory {
         sPoolsList.push(poolAddress);
         sPoolToPoolInfo[poolAddress] = PoolStruct(poolAddress, token0, token1, fee);
         sGetPool[token0][token1] = PoolStruct(poolAddress, token0, token1, fee);
+        sTokenPairs[token0].push(token1);
+        sTokenPairs[token1].push(token0);
+        sTokenPairKeys.push(token0);
+        sTokenPairKeys.push(token1);
     }
 
     ///////////////External view/////////////////////////////////
@@ -66,12 +72,23 @@ contract LiquidityPoolFactory {
         return sPoolsList;
     }
 
-    function getPoolWithAddress(address poolAddress) public view returns (address, address, address, uint256) {
-        PoolStruct memory pool = sPoolToPoolInfo[poolAddress];
-        return (pool.poolAddress, pool.token0, pool.token1, pool.fee);
+    function getPoolWithAddress(address poolAddress) public view returns (PoolStruct memory) {
+        return sPoolToPoolInfo[poolAddress];
     }
 
     function getPoolInfo(address token0, address token1) public view returns (PoolStruct memory) {
-        return sGetPool[token0][token1];
+        if (sGetPool[token0][token1].poolAddress != address(0)) {
+            return sGetPool[token0][token1];
+        } else {
+            return sGetPool[token1][token0];
+        }
+    }
+
+    function getTokenPair(address token) public view returns (address[] memory) {
+        return sTokenPairs[token];
+    }
+
+    function getTokenPairKeys() public view returns (address[] memory) {
+        return sTokenPairKeys;
     }
 }

@@ -21,17 +21,32 @@ const ExplorePoolsPage = () => {
   if (!poolFactoryAddress)
     return <div>Factory not deployed on this network</div>;
 
-  if (isLoading) return <div>Loading pools...</div>;
+  if (isLoading)
+    return (
+      <div className="p-[80px]">
+        <p className="text-3xl">Loading pools...</p>
+      </div>
+    );
 
-  if (isError) return <div>Error fetching pools</div>;
+  if (isError)
+    return (
+      <div className="p-[80px]">
+        <p className="text-3xl">Error fetching pools</p>
+      </div>
+    );
 
-  if (!pools?.length) return <div>No pools found</div>;
+  if (!pools?.length)
+    return (
+      <div className="p-[80px]">
+        <p className="text-3xl">No pools found.....</p>
+      </div>
+    );
 
   return (
     <div className="flex flex-col gap-[30px] p-[80px]">
       <h1 className="text-5xl">Pools</h1>
 
-      <div className="flex flex-col bg-gray-700 p-[24px] rounded-xl gap-[20px]">
+      <div className="flex flex-col bg-black p-[24px] rounded-xl gap-[20px]">
         <p>Your Positions</p>
         <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] items-center justify-between">
           <p>Pool</p>
@@ -50,7 +65,7 @@ const ExplorePoolsPage = () => {
         </div>
       </div>
 
-      <div className="flex flex-col max-w-[800px] bg-gray-700 p-[24px] rounded-xl gap-[20px]">
+      <div className="flex flex-col max-w-[800px] bg-black p-[24px] rounded-xl gap-[20px]">
         <div className="grid grid-cols-[50%_25%_25%] items-center justify-between">
           <p>Pool</p>
           <p>Fee</p>

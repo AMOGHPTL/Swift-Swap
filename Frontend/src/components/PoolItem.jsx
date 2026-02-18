@@ -34,7 +34,7 @@ const PoolItem = ({ address }) => {
   return (
     <div
       onClick={() => navigate(`/Pool/${address}`)}
-      className="grid grid-cols-[50%_25%_25%] items-center cursor-pointer bg-gray-900 px-[12px] py-[6px] rounded-xl"
+      className="grid grid-cols-[50%_25%_25%] items-center cursor-pointer bg-[#121212] px-[12px] py-[6px] rounded-xl"
     >
       <div className="flex items-center gap-[10px]">
         <div className="flex items-center gap-[10px] text-[24px]">

@@ -114,7 +114,7 @@ const MyPositions = ({ poolAddress }) => {
   }
 
   return (
-    <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] mb-[10px] items-center cursor-pointer bg-gray-900 px-[12px] py-[6px] rounded-xl">
+    <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] mb-[10px] items-center cursor-pointer bg-[#121212] px-[12px] py-[6px] rounded-xl">
       {/* Token Pair */}
       <div className="flex items-center gap-[10px]">
         <div className="flex items-center gap-[10px] text-[24px]">

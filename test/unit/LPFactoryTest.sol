@@ -47,7 +47,7 @@ contract LPFactoryTest is Test {
         vm.stopBroadcast();
 
         address[] memory allPools = poolFactory.getAllPools();
-        (, address token0,,) = poolFactory.getPoolWithAddress(allPools[0]);
+        address token0 = poolFactory.getPoolWithAddress(allPools[0]).token0;
 
         assertEq(allPools.length, 1);
         assertEq(token0, cardano);
