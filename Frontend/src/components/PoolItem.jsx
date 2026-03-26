@@ -6,6 +6,7 @@ import TokenName from "../abi/tokenAddressToName.json";
 import { useNavigate } from "react-router-dom";
 import { getReverseTokens } from "../utils/utils";
 import { useGetPoolLiquidity } from "../hooks/pool";
+import arrow from "../assets/arrow.svg";
 
 const PoolItem = ({ address }) => {
   const chainId = useChainId();
@@ -34,7 +35,7 @@ const PoolItem = ({ address }) => {
   return (
     <div
       onClick={() => navigate(`/Pool/${address}`)}
-      className="grid grid-cols-[50%_25%_25%] items-center cursor-pointer bg-[#121212] px-[12px] py-[6px] rounded-xl"
+      className="grid grid-cols-[50%_20%_20%_10%] items-center cursor-pointer bg-[#121212] px-[16px] py-[18px] rounded-xl"
     >
       <div className="flex items-center gap-[10px]">
         <div className="flex items-center gap-[10px] text-[24px]">
@@ -55,8 +56,11 @@ const PoolItem = ({ address }) => {
           <p>{Tokens[data.token1]}</p>
         </div>
       </div>
-      <div>${data.fee}</div>
+      <div>{data.fee}%</div>
       <div>${liquidity ? Number(formatEther(liquidity)).toFixed(2) : 0}</div>
+      <div className="flex justify-end px-[10px]">
+        <img src={arrow} alt="" className="w-[24px] rotate-[270deg]" />
+      </div>
     </div>
   );
 };
