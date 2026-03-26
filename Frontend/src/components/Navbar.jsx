@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
+import symbol from "../assets/symbol.svg";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Navbar = () => {
   return (
     <div className="flex text-gray-400 justify-between py-[12px] px-[30px] ">
       <div className="flex items-center gap-[20px]">
-        <img src={logo} alt="" className="w-[60px] " />
+        <img src={symbol} alt="" className="w-[42px] " />
       </div>
       <div className="flex gap-[40px] items-center">
         <Link to="/">Home</Link>
