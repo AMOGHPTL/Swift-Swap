@@ -1,3 +1,5 @@
+import { formatEther } from "viem";
+
 const PoolCard = ({ tokens, fee }) => {
   return (
     <div className="flex gap-[40px] items-center">
@@ -14,7 +16,7 @@ const PoolCard = ({ tokens, fee }) => {
         ))}
       </div>
       <div className="bg-gray-700 px-[10px] py-[3px] rounded-2xl">
-        <p>Fee : {fee / 1000000000000000000}</p>
+        <p>Fee : {fee}%</p>
       </div>
     </div>
   );

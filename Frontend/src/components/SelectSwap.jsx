@@ -58,9 +58,7 @@ const SelectSwap = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      // reset inputs after successful swap
-      setCurrentTokenAmount(0n);
-      setBuyTokenAmount(0n);
+      window.location.reload();
     }
   }, [isSuccess]);
 
