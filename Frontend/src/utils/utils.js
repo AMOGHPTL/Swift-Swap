@@ -1,9 +1,9 @@
 export function getReverseTokens(TokenName) {
-      const Tokens = Object.fromEntries(
+  const Tokens = Object.fromEntries(
     Object.entries(TokenName).map(([name, addr]) => [addr, name]),
   );
   return Tokens;
-} 
+}
 
 export function shorten(value, start = 3, end = 3) {
   if (!value) return "";
@@ -21,9 +21,10 @@ export function getAmountOut(reserveIn, reserveOut, amountIn, fee) {
 
   if (amountIn <= 0n) return 0n;
 
-  const amountInWithFee = amountIn - fee;
+  const amountInWithFee = amountIn - (fee * amountIn) / 100n;
 
-  const amountOut = (amountInWithFee * reserveOut)/ (reserveIn + amountInWithFee);
+  const amountOut =
+    (amountInWithFee * reserveOut) / (reserveIn + amountInWithFee);
 
   return amountOut;
 }
@@ -32,7 +33,7 @@ export function getAmountInFromAmountOut(
   reserveIn,
   reserveOut,
   amountOut,
-  fee
+  fee,
 ) {
   reserveIn = BigInt(reserveIn);
   reserveOut = BigInt(reserveOut);
@@ -43,16 +44,9 @@ export function getAmountInFromAmountOut(
 
   const feeDenominator = 1000n;
 
-  const numerator =
-    reserveIn * amountOut * feeDenominator;
+  const numerator = reserveIn * amountOut * feeDenominator;
 
-  const denominator =
-    (reserveOut - amountOut) *
-    (feeDenominator - fee);
+  const denominator = (reserveOut - amountOut) * (feeDenominator - fee);
 
   return numerator / denominator + 1n;
 }
-
-
-
-

@@ -1,9 +1,13 @@
 import { useState } from "react";
 import LiquidityPool from "../abi/LiquidityPool.json";
-import { usePublicClient, useReadContract, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import {
+  usePublicClient,
+  useReadContract,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
 import { erc20Abi } from "viem";
 import { useAccount } from "wagmi";
-
 
 export function useGetPoolLiquidity(poolAddress, watch = true) {
   const result = useReadContract({
@@ -25,38 +29,35 @@ export function useGetPoolLiquidity(poolAddress, watch = true) {
 }
 
 export function useGetTokenReserve(poolAddress, tokenAddress, watch = true) {
-    const result = useReadContract({
-        address: poolAddress,
-        abi: LiquidityPool,
-        functionName: "getReserveOfToken",
-        args: [tokenAddress],
-           query: {
+  const result = useReadContract({
+    address: poolAddress,
+    abi: LiquidityPool,
+    functionName: "getReserveOfToken",
+    args: [tokenAddress],
+    query: {
       enabled: !!poolAddress,
       refetchInterval: watch ? 3000 : false,
     },
-    })
+  });
 
-    return {
-            reserve: result.data ?? null,
+  return {
+    reserve: result.data ?? null,
     isLoading: result.isLoading,
     error: result.error,
     refetch: result.refetch,
-    }
+  };
 }
 
-export function useAddLiquidity(
-  poolAddress,
-  token0Address,
-  token1Address
-) {
+export function useAddLiquidity(poolAddress, token0Address, token1Address) {
   const [hash, setHash] = useState(null);
 
   const { address: user } = useAccount();
   const publicClient = usePublicClient();
-  const { writeContractAsync } = useWriteContract();
+  const { writeContractAsync, isPending } = useWriteContract();
 
-  const { isLoading: isConfirming, isSuccess } =
-    useWaitForTransactionReceipt({ hash });
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
+    hash,
+  });
 
   const addLiquidity = async (amount0, amount1) => {
     if (!user || !token0Address || !token1Address) return;
@@ -106,22 +107,23 @@ export function useAddLiquidity(
 
   return {
     addLiquidity,
+    isPending,
     isConfirming,
     isSuccess,
   };
 }
 
-export function useGetLiquidityTokenTotalSupply(poolAddress, watch=true){
+export function useGetLiquidityTokenTotalSupply(poolAddress, watch = true) {
   const result = useReadContract({
     address: poolAddress,
     abi: LiquidityPool,
     functionName: "totalSupply",
     args: [],
-     query: {
+    query: {
       enabled: !!poolAddress,
       refetchInterval: watch ? 3000 : false,
     },
-  })
+  });
 
   return {
     supply: result.data ?? null,
@@ -158,14 +160,15 @@ export function useGetLiquidityTokenOfUser(poolAddress, userAddress) {
 }
 
 export function useRemoveLiquidity(poolAddress) {
-    const [hash, setHash] = useState(null);
+  const [hash, setHash] = useState(null);
 
   const { address: user } = useAccount();
   const { writeContractAsync } = useWriteContract();
 
-  const { isLoading: isConfirming, isSuccess } =
-    useWaitForTransactionReceipt({ hash });
-    const removeLiquidity = async (userLPTokens) => {
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
+    hash,
+  });
+  const removeLiquidity = async (userLPTokens) => {
     if (!user) return;
 
     const txHash = await writeContractAsync({
@@ -182,22 +185,23 @@ export function useRemoveLiquidity(poolAddress) {
     removeLiquidity,
     isConfirming,
     isSuccess,
-  }
+  };
 }
 
 export function useSwap(poolAddress) {
-      const [hash, setHash] = useState(null);
+  const [hash, setHash] = useState(null);
 
   const { address: user } = useAccount();
   const publicClient = usePublicClient();
   const { writeContractAsync } = useWriteContract();
 
-  const { isLoading: isConfirming, isSuccess } =
-    useWaitForTransactionReceipt({ hash });
-    const swap = async (tokenIn, amountIn) => {
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
+    hash,
+  });
+  const swap = async (tokenIn, amountIn) => {
     if (!tokenIn || !amountIn) return;
 
-        const allowance0 = await publicClient.readContract({
+    const allowance0 = await publicClient.readContract({
       address: tokenIn,
       abi: erc20Abi,
       functionName: "allowance",
@@ -227,8 +231,5 @@ export function useSwap(poolAddress) {
     swap,
     isConfirming,
     isSuccess,
-  }
+  };
 }
-
-
-

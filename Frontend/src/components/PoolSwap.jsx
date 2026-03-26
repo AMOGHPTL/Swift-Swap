@@ -54,8 +54,8 @@ const PoolSwap = ({ address }) => {
   useEffect(() => {
     if (!data) return;
 
-    setBuyToken(data.token0);
-    setSellToken(data.token1);
+    setBuyToken(data.token1);
+    setSellToken(data.token0);
   }, [data]);
 
   /* ---------------- CALCULATE OUTPUT ---------------- */
@@ -66,14 +66,14 @@ const PoolSwap = ({ address }) => {
       return;
     }
 
-    const reserveIn = buyToken === data.token0 ? reserveToken0 : reserveToken1;
-
-    const reserveOut = buyToken === data.token0 ? reserveToken1 : reserveToken0;
+    const reserveIn = sellToken === data.token0 ? reserveToken0 : reserveToken1;
+    const reserveOut =
+      sellToken === data.token0 ? reserveToken1 : reserveToken0;
 
     const output = getAmountOut(reserveIn, reserveOut, amountIn, data.fee);
 
     setAmountOut(output);
-  }, [amountIn, buyToken, reserveToken0, reserveToken1, data]);
+  }, [amountIn, buyToken, sellToken, reserveToken0, reserveToken1, data]);
 
   /* ---------------- INPUT HANDLER ---------------- */
 
@@ -148,7 +148,7 @@ const PoolSwap = ({ address }) => {
           <div className="flex flex-col gap-[30px]">
             <div className="flex flex-col relative gap-[15px] max-w-[800px]">
               <Input
-                token={Tokens[buyToken]}
+                token={Tokens[sellToken]}
                 amount={formatEther(amountIn)}
                 setAmount={handleAmountChange}
                 title="Sell"
@@ -157,7 +157,7 @@ const PoolSwap = ({ address }) => {
               <SwapArrow action={swapTokens} />
 
               <Input
-                token={Tokens[sellToken]}
+                token={Tokens[buyToken]}
                 amount={formatEther(amountOut)}
                 setAmount={() => {}}
                 title="Buy"

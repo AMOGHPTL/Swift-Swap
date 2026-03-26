@@ -28,6 +28,7 @@ const SwapInput = ({
         <div className="flex justify-between gap-[40px]">
           <div className="flex flex-1 bg-gray-600 p-[5px] rounded-2xl px-[20px]">
             <input
+            disabled = {!token}
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               type="number"

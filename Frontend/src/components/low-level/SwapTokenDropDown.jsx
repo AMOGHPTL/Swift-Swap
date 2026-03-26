@@ -1,17 +1,11 @@
 import arrow from "../../assets/arrow.svg";
 
-const SwapTokenDropDown = ({
-  tokens,
-  token,
-  setToken,
-  isOpen,
-  setIsOpen
-}) => {
+const SwapTokenDropDown = ({ tokens, token, setToken, isOpen, setIsOpen }) => {
   return (
     <div>
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex w-[200px] h-[50px] justify-between gap-[12px] items-center cursor-pointer rounded-[8px] border-[2px] border-gray-500 px-[24px] py-[10px] ${isOpen ? "border-b-0 rounded-b-none" : ""} ${token?"":"bg-pink-500"}`}
+        className={`flex w-[200px] h-[50px] justify-between gap-[12px] items-center cursor-pointer rounded-[8px] border-[2px] border-gray-500 px-[24px] py-[10px] ${isOpen ? "border-b-0 rounded-b-none" : ""} ${token ? "" : "bg-pink-500"}`}
       >
         <div className="flex items-center gap-[6px]">
           <img
@@ -19,7 +13,7 @@ const SwapTokenDropDown = ({
             alt=""
             className="w-[20px]"
           />
-          <p className="text-[20px]">{token?token:"select"}</p>
+          <p className="text-[20px]">{token ? token : "select"}</p>
         </div>
         <img
           src={arrow}
@@ -28,11 +22,14 @@ const SwapTokenDropDown = ({
         />
       </div>
       {isOpen && (
-        <div className="absolute border-[2px] w-[200px] border-t-0 border-gray-500 transition duration-150">
+        <div className="absolute border-[2px] w-[200px] border-t-0 rounded-b-[8px] border-gray-500 transition duration-150">
           {tokens?.map((Token) => (
             <div
-              onClick={() => setToken(Token)}
-              className="flex bg-gray-800 border-[2px] border-gray-900 gap-[12px] items-center cursor-pointer px-[24px] py-[10px]"
+              onClick={() => {
+                setToken(Token);
+                setIsOpen(false);
+              }}
+              className="flex bg-gray-800 rounded-[8px] border-[2px] border-gray-900 gap-[12px] items-center cursor-pointer px-[24px] py-[10px]"
             >
               <img
                 src={`../public/tokens/${Token}.svg`}

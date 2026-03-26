@@ -123,7 +123,7 @@ const CreatePoolPage = () => {
               onClick={() =>
                 createPool(TokenName[token0], TokenName[token1], fee)
               }
-              className={`bg-blue-700 px-[15px] py-[5px] h-[36px] w-[150px] flex items-center justify-center cursor-pointer rounded-xl disabled:bg-gray-600 disabled:cursor-not-allowed`}
+              className={`bg-pink-500 px-[15px] py-[5px] h-[36px] w-[150px] flex items-center justify-center cursor-pointer rounded-xl disabled:bg-gray-600 disabled:cursor-not-allowed`}
             >
               {isPending ? (
                 <img src={lock} alt="" className="w-[16px]" />

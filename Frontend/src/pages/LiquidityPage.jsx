@@ -1,7 +1,7 @@
 import { formatEther } from "viem";
 import { isAddress } from "viem";
 import { useChainId } from "wagmi";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getReverseTokens, shorten } from "../utils/utils";
 import TokenName from "../abi/tokenAddressToName.json";
 import { useGetPoolInfoWithPoolAddress } from "../hooks/poolFactory";
@@ -10,8 +10,9 @@ import arrow from "../assets/arrow.svg";
 import Input from "../components/low-level/input";
 import ActionBtn from "../components/low-level/ActionBtn";
 import { useAddLiquidity } from "../hooks/pool";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { parseEther } from "viem";
+import lock from "../assets/lock.svg";
 
 const LiquidityPage = () => {
   const [amount0, setAmount0] = useState("");
@@ -20,6 +21,8 @@ const LiquidityPage = () => {
   const { address } = useParams();
 
   const Tokens = getReverseTokens(TokenName);
+
+  const navigate = useNavigate();
 
   const chainId = useChainId();
   const factoryAddress = PoolFactoryAddresses[chainId];
@@ -32,7 +35,17 @@ const LiquidityPage = () => {
     enabled,
   );
 
-  const { addLiquidity } = useAddLiquidity(address, data?.token0, data?.token1);
+  const { addLiquidity, isPending, isSuccess } = useAddLiquidity(
+    address,
+    data?.token0,
+    data?.token1,
+  );
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/ExplorePools");
+    }
+  }, [isSuccess]);
 
   if (!enabled) return null;
   if (isLoading) return <div>Loading {address}...</div>;
@@ -86,7 +99,7 @@ const LiquidityPage = () => {
             />
           </div>
           <div>
-            <p>Pool swap Fee : {data.fee} Tokens</p>
+            <p>Pool swap Fee : {data.fee}%</p>
             <p>
               {Tokens[data.token0]} tokens: {amount0}
             </p>
@@ -97,15 +110,16 @@ const LiquidityPage = () => {
           <div>
             <div>
               <button
+                disabled={isPending || (!amount0 && !amount1)}
                 onClick={() =>
                   addLiquidity(
-                    parseEther(amount0.toString()),
-                    parseEther(amount1.toString()),
+                    parseEther(amount0 || "0"),
+                    parseEther(amount1 || "0"),
                   )
                 }
-                className="bg-blue-700 px-[15px] py-[5px] cursor-pointer rounded-xl"
+                className="bg-blue-700 flex justify-center w-[150px] px-[15px] h-[36px] py-[5px] cursor-pointer rounded-xl disabled:bg-gray-600 disabled:cursor-not-allowed"
               >
-                create position
+                {isPending ? <img src={lock} alt="" /> : "create position"}
               </button>
             </div>
           </div>

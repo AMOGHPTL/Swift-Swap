@@ -16,13 +16,13 @@ import { useGetTokenReserve, useSwap } from "../hooks/pool";
 import { formatEther, parseEther } from "viem";
 
 const SelectSwap = () => {
-  const [currentToken, setCurrentToken] = useState("");
+  const [sellToken, setsellToken] = useState("");
   const [buyToken, setBuyToken] = useState("");
 
-  const [currentTokenIsopen, setCurrentTokenIsopen] = useState(false);
+  const [sellTokenIsopen, setsellTokenIsopen] = useState(false);
   const [buyTokenIsOpen, setBuyTokenIsOpen] = useState(false);
 
-  const [currentTokenAmount, setCurrentTokenAmount] = useState(0n);
+  const [sellTokenAmount, setsellTokenAmount] = useState(0n);
   const [buyTokenAmount, setBuyTokenAmount] = useState(0n);
 
   const chainId = useChainId();
@@ -30,12 +30,12 @@ const SelectSwap = () => {
 
   useEffect(() => {
     setBuyToken("");
-  }, [currentToken]);
+  }, [sellToken]);
 
   function swapTokens() {
-    setCurrentToken(buyToken);
-    setBuyToken(currentToken);
-    setCurrentTokenAmount(0n);
+    setsellToken(buyToken);
+    setBuyToken(sellToken);
+    setsellTokenAmount(0n);
     setBuyTokenAmount(0n);
   }
 
@@ -45,12 +45,12 @@ const SelectSwap = () => {
 
   const { data: buyTokenOptions, isLoading: isLoadingPairs } = useGetTokenPair(
     poolFactoryAddress,
-    Tokens[currentToken] ?? undefined,
+    Tokens[sellToken] ?? undefined,
   );
 
   const { data: poolInfo, isLoading: IsLoadingPoolInfo } = useGetPoolInfo(
     poolFactoryAddress,
-    Tokens[currentToken],
+    Tokens[sellToken],
     Tokens[buyToken],
   );
 
@@ -73,35 +73,39 @@ const SelectSwap = () => {
   const handleAmountChange = (value) => {
     try {
       const weiValue = parseEther(value || "0");
-      setCurrentTokenAmount(weiValue);
+      setsellTokenAmount(weiValue);
     } catch {
-      setCurrentTokenAmount(0n);
+      setsellTokenAmount(0n);
     }
   };
 
   /*********calculate output **************/
 
   useEffect(() => {
-    if (!poolInfo || currentTokenAmount === "") {
-      setBuyTokenAmount("");
+    if (!poolInfo || sellTokenAmount === 0n) {
+      setBuyTokenAmount(0n);
       return;
     }
 
+    // buyToken here is still the human-readable name (e.g. "ETH"),
+    // so resolve it to an address first
+    const buyTokenAddress = Tokens[buyToken];
+
     const reserveIn =
-      buyToken === poolInfo.token0 ? reserveToken0 : reserveToken1;
+      buyTokenAddress === poolInfo.token0 ? reserveToken1 : reserveToken0;
 
     const reserveOut =
-      buyToken === poolInfo.token0 ? reserveToken1 : reserveToken0;
+      buyTokenAddress === poolInfo.token0 ? reserveToken0 : reserveToken1;
 
     const output = getAmountOut(
       reserveIn,
       reserveOut,
-      currentTokenAmount,
+      sellTokenAmount,
       poolInfo.fee,
     );
 
     setBuyTokenAmount(output);
-  }, [currentTokenAmount, buyToken, reserveToken0, reserveToken1, poolInfo]);
+  }, [sellTokenAmount, buyToken, reserveToken0, reserveToken1, poolInfo]);
 
   const buyTokensList = buyTokenOptions?.map((token) => addressToTokens[token]);
 
@@ -116,36 +120,44 @@ const SelectSwap = () => {
   return allTokens.length > 0 ? (
     <div className="flex flex-col items-center gap-[50px] pt-[30px]">
       <p className="text-3xl font-semibold">Swap</p>
-      <div className="flex flex-col relative gap-[15px] max-w-[800px]">
-        <SwapInput
-          token={currentToken}
-          isOpen={currentTokenIsopen}
-          setIsOpen={setCurrentTokenIsopen}
-          setToken={setCurrentToken}
-          tokens={allTokens}
-          amount={formatEther(currentTokenAmount)}
-          setAmount={handleAmountChange}
-          title="Sell"
-        />
+      <div className="flex flex-col gap-[10px]">
+        <div className="flex flex-col relative gap-[15px] max-w-[800px]">
+          <SwapInput
+            token={sellToken}
+            isOpen={sellTokenIsopen}
+            setIsOpen={setsellTokenIsopen}
+            setToken={setsellToken}
+            tokens={allTokens}
+            amount={formatEther(sellTokenAmount)}
+            setAmount={handleAmountChange}
+            title="Sell"
+          />
 
-        <SwapArrow action={swapTokens} />
+          <SwapArrow action={swapTokens} />
 
-        <SwapInput
-          token={buyToken}
-          isOpen={buyTokenIsOpen}
-          setIsOpen={setBuyTokenIsOpen}
-          setToken={setBuyToken}
-          tokens={buyTokensList}
-          amount={formatEther(buyTokenAmount)}
-          setAmount={() => {}}
-          title="Buy"
-        />
+          <SwapInput
+            token={buyToken}
+            isOpen={buyTokenIsOpen}
+            setIsOpen={setBuyTokenIsOpen}
+            setToken={setBuyToken}
+            tokens={buyTokensList}
+            amount={formatEther(buyTokenAmount)}
+            setAmount={() => {}}
+            title="Buy"
+          />
+        </div>
+        {sellTokenAmount > 0 && buyTokenAmount == 0 && (
+          <p className="text-red-600 px-[10px]">
+            * No Liquidity available please select different tokens
+          </p>
+        )}
       </div>
+
       <div>
         <button
-          disabled={!currentToken || !buyToken || !currentTokenAmount}
-          onClick={() => swap(Tokens[currentToken], currentTokenAmount)}
-          className={`bg-pink-500 px-[15px] py-[5px] w-[200px] cursor-pointer rounded-xl disabled:cursor-not-allowed disabled:bg-pink-950`}
+          disabled={!sellToken || !buyToken || !sellTokenAmount}
+          onClick={() => swap(Tokens[sellToken], sellTokenAmount)}
+          className={`bg-pink-500 h-[48px] px-[15px] py-[5px] w-[200px] cursor-pointer rounded-xl disabled:cursor-not-allowed disabled:bg-pink-950`}
         >
           swap
         </button>

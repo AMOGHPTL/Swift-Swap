@@ -20,7 +20,8 @@ const Input = ({ token, amount, setAmount, title = "" }) => {
           <input
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            type="number"
+            type="text"
+            inputMode="decimal"
             className="w-full outline-0 text-[24px]"
           />
         </div>
