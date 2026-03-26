@@ -13,7 +13,7 @@ import FactoryAddresses from "../abi/LiquidityPoolFactoryAddresses.json";
 import { formatEther, isAddress } from "viem";
 import ActionBtn from "./low-level/ActionBtn";
 
-const MyPositions = ({ poolAddress }) => {
+const MyPositions = ({ poolAddress, onHasPosition }) => {
   const { address } = useAccount();
   const chainId = useChainId();
   const factoryAddress = FactoryAddresses[chainId];
@@ -113,6 +113,7 @@ const MyPositions = ({ poolAddress }) => {
     return null;
   }
 
+  onHasPosition(true);
   return (
     <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] mb-[10px] items-center cursor-pointer bg-[#121212] px-[12px] py-[6px] rounded-xl">
       {/* Token Pair */}

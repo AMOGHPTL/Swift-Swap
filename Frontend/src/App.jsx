@@ -9,6 +9,7 @@ import ExplorePoolsPage from "./pages/ExplorePoolsPage";
 import SwapPage from "./pages/SwapPage";
 import PoolPage from "./pages/PoolPage";
 import LiquidityPage from "./pages/LiquidityPage";
+import DashBoard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/Swap/:address" element={<SwapPage />} />
           <Route path="/Pool/:address" element={<PoolPage />} />
           <Route path="/Liquidity/:address" element={<LiquidityPage />} />
+          <Route path="/Dashboard" element={<DashBoard />} />
         </Routes>
       </main>
     </div>

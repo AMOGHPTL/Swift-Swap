@@ -2,11 +2,6 @@ import { useChainId } from "wagmi";
 import { useGetPools } from "../hooks/poolFactory";
 import poolFactoryAddresses from "../abi/LiquidityPoolFactoryAddresses.json";
 import PoolItem from "../components/PoolItem";
-import MyPositions from "../components/MyPositions";
-import {
-  useGetLiquidityTokenOfUser,
-  useGetLiquidityTokenTotalSupply,
-} from "../hooks/pool";
 
 const ExplorePoolsPage = () => {
   const chainId = useChainId();
@@ -46,26 +41,7 @@ const ExplorePoolsPage = () => {
     <div className="flex flex-col gap-[30px] p-[80px]">
       <h1 className="text-5xl">Pools</h1>
 
-      <div className="flex flex-col bg-black p-[24px] rounded-xl gap-[20px]">
-        <p>Your Positions</p>
-        <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] items-center justify-between">
-          <p>Pool</p>
-          <p>token-1</p>
-          <p>token-2</p>
-          <p>total</p>
-          <p>close</p>
-          <p>Pool liquidity</p>
-        </div>
-        <div>
-          {pools.map((address) => (
-            <div>
-              <MyPositions key={address} poolAddress={address} />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="flex flex-col max-w-[800px] bg-black p-[24px] rounded-xl gap-[20px]">
+      <div className="flex flex-col bg-black py-[24px] px-[48px] rounded-xl gap-[20px]">
         <div className="grid grid-cols-[50%_25%_25%] items-center justify-between">
           <p>Pool</p>
           <p>Fee</p>
