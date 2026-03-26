@@ -191,7 +191,7 @@ contract LiquidityPool is LiquidityToken, ReentrancyGuard, ERC165 {
         // dy(x+dx) = y.dx
         // dy = y.dx/(x+dx) -- dy is the amount out dx is the amount in after fee cut
 
-        uint256 amountInAfterFee = amountIn - I_FEE;
+        uint256 amountInAfterFee = amountIn - (I_FEE * amountIn / 100);
 
         uint256 amountOut = (reserveOut * amountInAfterFee) / (reserveIn + amountInAfterFee);
 
