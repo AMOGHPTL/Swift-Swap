@@ -1,6 +1,6 @@
 import { formatEther, isAddress } from "viem";
 import { useChainId } from "wagmi";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getReverseTokens, shorten } from "../utils/utils";
 import TokenName from "../abi/tokenAddressToName.json";
 import PoolFactoryAddresses from "../abi/LiquidityPoolFactoryAddresses.json";
@@ -13,6 +13,8 @@ import Btn from "../components/low-level/Btn";
 
 const PoolPage = () => {
   const { address } = useParams();
+
+  const navigate = useNavigate();
 
   const Tokens = getReverseTokens(TokenName);
   const chainId = useChainId();
@@ -38,7 +40,10 @@ const PoolPage = () => {
 
   return (
     <div className="p-[80px] max-w-[70%]">
-      <div className="flex items-center gap-[10px]">
+      <div
+        onClick={() => navigate("/ExplorePools")}
+        className="flex items-center gap-[10px] cursor-pointer"
+      >
         <p className="text-gray-400">Pools</p>
         <img src={arrow} alt="" className="w-[10px] rotate-270" />
         <p>
@@ -90,7 +95,7 @@ const PoolPage = () => {
               </div>
               <div className="flex flex-col gap-[3px]">
                 <p className="text-xl">Fee</p>
-                <p>{data.fee} Tokens</p>
+                <p>{data.fee}%</p>
               </div>
             </div>
           </div>

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 body {
-  background-color:  #121212 ; /* softer dark */
+  background-color: black ; /* softer dark */
   color: white;
   font-family: system-ui, sans-serif;
 }

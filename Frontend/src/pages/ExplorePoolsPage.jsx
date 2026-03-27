@@ -41,7 +41,7 @@ const ExplorePoolsPage = () => {
     <div className="flex flex-col gap-[30px] p-[80px]">
       <h1 className="text-5xl">Pools</h1>
 
-      <div className="flex flex-col bg-black py-[24px] px-[48px] rounded-xl gap-[20px]">
+      <div className="flex flex-col bg-white/5 py-[24px] px-[12px] rounded-xl gap-[20px]">
         <div className="grid grid-cols-[50%_20%_20%_10%] items-center justify-between px-[16px]">
           <p>Token pair</p>
           <p>Fee</p>

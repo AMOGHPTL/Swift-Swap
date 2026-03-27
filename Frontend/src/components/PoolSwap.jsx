@@ -17,7 +17,9 @@ import { useGetPoolInfoWithPoolAddress } from "../hooks/poolFactory";
 import arrow from "../assets/arrow.svg";
 import Input from "./low-level/input";
 import SwapArrow from "./low-level/SwapArrow";
-import { useGetERC20Balance } from "../hooks/erc20";
+import lock from "../assets/lock.svg";
+import back from "../assets/back.svg";
+import { useNavigate } from "react-router-dom";
 
 const PoolSwap = ({ address }) => {
   const [sellToken, setSellToken] = useState("");
@@ -25,6 +27,8 @@ const PoolSwap = ({ address }) => {
 
   const [amountIn, setAmountIn] = useState(0n);
   const [amountOut, setAmountOut] = useState(0n);
+
+  const navigate = useNavigate();
 
   const Tokens = getReverseTokens(TokenName);
 
@@ -47,7 +51,7 @@ const PoolSwap = ({ address }) => {
   const reserveToken1 =
     useGetTokenReserve(address, data?.token1)?.reserve ?? 0n;
 
-  const { swap } = useSwap(address);
+  const { swap, isPending, isSuccess } = useSwap(address);
 
   /* ---------------- INIT TOKENS ---------------- */
 
@@ -106,12 +110,15 @@ const PoolSwap = ({ address }) => {
   return (
     <div className="flex flex-col gap-[10px] p-[80px] ">
       <div className="flex flex-col">
-        <div className="flex items-center gap-[10px]">
-          <p className="text-gray-400">Pools</p>
-          <img src={arrow} alt="" className="w-[10px] rotate-270" />
-          <p>
+        <div
+          onClick={() => navigate(`/Pool/${address}`)}
+          className="flex items-center gap-[10px] cursor-pointer"
+        >
+          <p className="text-gray-400">
             {Tokens[data.token0]}/{Tokens[data.token1]} {shorten(address)}
           </p>
+          <img src={arrow} alt="" className="w-[10px] rotate-270" />
+          <p>Swap</p>
         </div>
 
         <div className="flex flex-col gap-[60px]">
@@ -167,7 +174,7 @@ const PoolSwap = ({ address }) => {
 
           <div className="flex flex-col gap-[30px]">
             <div>
-              <p>Pool swap Fee : {data.fee.toString()} tokens</p>
+              <p>Pool swap Fee : {data.fee.toString()}%</p>
               <p>
                 {Tokens[data.token0]} tokens:{" "}
                 {Number(formatEther(reserveToken0)).toFixed(2)}
@@ -180,10 +187,15 @@ const PoolSwap = ({ address }) => {
 
             <div>
               <button
+                disabled={isPending || amountIn == 0n}
                 onClick={() => swap(sellToken, amountIn)}
-                className="bg-blue-700 px-[15px] py-[5px] cursor-pointer rounded-xl"
+                className="bg-pink-500 flex justify-center items-center px-[15px] py-[8px] min-w-[150px] cursor-pointer rounded-xl disabled:opacity-50 disabled:cursor-pointer"
               >
-                swap
+                {isPending ? (
+                  <img src={lock} alt="" className="w-[]" />
+                ) : (
+                  "swap"
+                )}
               </button>
             </div>
           </div>

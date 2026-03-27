@@ -193,7 +193,7 @@ export function useSwap(poolAddress) {
 
   const { address: user } = useAccount();
   const publicClient = usePublicClient();
-  const { writeContractAsync } = useWriteContract();
+  const { writeContractAsync, isPending } = useWriteContract();
 
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
     hash,
@@ -229,6 +229,7 @@ export function useSwap(poolAddress) {
 
   return {
     swap,
+    isPending,
     isConfirming,
     isSuccess,
   };

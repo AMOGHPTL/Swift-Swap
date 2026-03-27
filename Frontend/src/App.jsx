@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="min">
       <Navbar />
-      <main>
+      <main className="px-[8%]">
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/CreatePool" element={<CreatePoolPage />} />

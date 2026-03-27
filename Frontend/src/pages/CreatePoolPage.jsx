@@ -62,10 +62,10 @@ const CreatePoolPage = () => {
       <div>
         <p className="text-5xl">Create pool</p>
       </div>
-      <div className="flex gap-[100px] bg-black p-[30px] rounded-xl">
-        <div className="flex flex-col gap-[30px] min-w-[500px] min-h-[300px]">
+      <div className="grid grid-cols-[1fr_1fr] bg-white/5 p-[30px] rounded-xl">
+        <div className="flex flex-col gap-[30px]">
           <p className="text-3xl">Select Token Pair</p>
-          <div className="flex flex-col gap-[50px]">
+          <div className="flex flex-col gap-[30px]">
             <div ref={dropdownRef} className="flex flex-col gap-[20px]">
               {showError && (
                 <p className="text-red-800">
@@ -110,11 +110,11 @@ const CreatePoolPage = () => {
         </div>
         <div className="flex flex-col gap-[60px]">
           <div className="flex flex-col gap-[10px]">
-            <p className="text-xl">Pool Summary</p>
+            <p className="text-3xl">Pool Summary</p>
             <div className="font-light text-gray-400">
-              <p>token 1 : {token0}</p>
-              <p>token 2 : {token1}</p>
-              <p>fee : {fee}%</p>
+              <p className="text-[20px]">token 1 : {token0}</p>
+              <p className="text-[20px]">token 2 : {token1}</p>
+              <p className="text-[20px]">fee : {fee ? `${fee}%` : ""}</p>
             </div>
           </div>
           <div>
@@ -123,7 +123,7 @@ const CreatePoolPage = () => {
               onClick={() =>
                 createPool(TokenName[token0], TokenName[token1], fee)
               }
-              className={`bg-pink-500 px-[15px] py-[5px] h-[36px] w-[150px] flex items-center justify-center cursor-pointer rounded-xl disabled:bg-gray-600 disabled:cursor-not-allowed`}
+              className={`bg-pink-500 h-[48px] w-[80%] flex items-center justify-center cursor-pointer rounded-xl disabled:bg-gray-600 disabled:cursor-not-allowed`}
             >
               {isPending ? (
                 <img src={lock} alt="" className="w-[16px]" />

@@ -53,12 +53,15 @@ const LiquidityPage = () => {
 
   return (
     <div className="p-[80px]">
-      <div className="flex items-center gap-[10px]">
-        <p className="text-gray-400">Pool</p>
-        <img src={arrow} alt="" className="w-[10px] rotate-270" />
+      <div
+        onClick={() => navigate(`/Pool/${address}`)}
+        className="flex items-center gap-[10px] cursor-pointer"
+      >
         <p>
           {Tokens[data.token0]}/{Tokens[data.token1]} {shorten(address)}
         </p>
+        <img src={arrow} alt="" className="w-[10px] rotate-270" />
+        <p className="text-gray-400">Supply Liquidity</p>
       </div>
       <div className="flex flex-col gap-[30px]">
         <div className="flex items-center gap-[10px]">
@@ -117,7 +120,7 @@ const LiquidityPage = () => {
                     parseEther(amount1 || "0"),
                   )
                 }
-                className="bg-blue-700 flex justify-center w-[150px] px-[15px] h-[36px] py-[5px] cursor-pointer rounded-xl disabled:bg-gray-600 disabled:cursor-not-allowed"
+                className="bg-pink-500 flex justify-center w-[150px] px-[15px] h-[36px] py-[5px] cursor-pointer rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isPending ? <img src={lock} alt="" /> : "create position"}
               </button>
