@@ -54,7 +54,7 @@ const SelectSwap = () => {
     Tokens[buyToken],
   );
 
-  const { swap, isSuccess, isConfirming } = useSwap(poolInfo?.poolAddress);
+  const { swap, isSuccess, isPending } = useSwap(poolInfo?.poolAddress);
 
   useEffect(() => {
     if (isSuccess) {
@@ -155,11 +155,11 @@ const SelectSwap = () => {
 
       <div>
         <button
-          disabled={!sellToken || !buyToken || !sellTokenAmount}
+          disabled={!sellToken || !buyToken || !sellTokenAmount || isPending}
           onClick={() => swap(Tokens[sellToken], sellTokenAmount)}
-          className={`bg-pink-500 h-[48px] px-[15px] py-[5px] w-[200px] cursor-pointer rounded-xl disabled:cursor-not-allowed disabled:bg-pink-950`}
+          className={`bg-pink-500 h-[48px] px-[15px] py-[5px] w-[200px] cursor-pointer rounded-xl disabled:cursor-not-allowed disabled:opacity-50`}
         >
-          swap
+          {isPending ? <img src={lock} alt="" className="w-[16px]" /> : "swap"}
         </button>
       </div>
     </div>
