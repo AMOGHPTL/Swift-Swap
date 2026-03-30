@@ -195,7 +195,7 @@ const PoolSwap = ({ address }) => {
               <button
                 disabled={isPending || amountIn == 0n}
                 onClick={() => swap(sellToken, amountIn)}
-                className="bg-pink-500 flex justify-center items-center px-[15px] py-[8px] min-w-[150px] cursor-pointer rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-pink-500 flex justify-center items-center h-[42px] px-[15px] py-[8px] min-w-[150px] cursor-pointer rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isPending ? (
                   <img src={lock} alt="" className="w-[16px]" />

@@ -14,6 +14,7 @@ import SwapInput from "./low-level/SwapInput";
 import SwapArrow from "./low-level/SwapArrow";
 import { useGetTokenReserve, useSwap } from "../hooks/pool";
 import { formatEther, parseEther } from "viem";
+import lock from "../assets/lock.svg";
 
 const SelectSwap = () => {
   const [sellToken, setsellToken] = useState("");
@@ -157,7 +158,7 @@ const SelectSwap = () => {
         <button
           disabled={!sellToken || !buyToken || !sellTokenAmount || isPending}
           onClick={() => swap(Tokens[sellToken], sellTokenAmount)}
-          className={`bg-pink-500 h-[48px] px-[15px] py-[5px] w-[200px] cursor-pointer rounded-xl disabled:cursor-not-allowed disabled:opacity-50`}
+          className={`bg-pink-500 flex items-center justify-center h-[48px] px-[15px] py-[5px] w-[200px] cursor-pointer rounded-xl disabled:cursor-not-allowed disabled:opacity-50`}
         >
           {isPending ? <img src={lock} alt="" className="w-[16px]" /> : "swap"}
         </button>

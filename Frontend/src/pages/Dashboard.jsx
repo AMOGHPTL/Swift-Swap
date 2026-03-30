@@ -42,8 +42,8 @@ const DashBoard = () => {
           <p>token-1</p>
           <p>token-2</p>
           <p>total</p>
-          <p>close</p>
           <p>Pool liquidity</p>
+          <p>close</p>
         </div>
       ) : (
         <p className="text-[28px]">No positions found...</p>

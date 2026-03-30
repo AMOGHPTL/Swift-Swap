@@ -12,8 +12,11 @@ import { useGetPoolInfoWithPoolAddress } from "../hooks/poolFactory";
 import FactoryAddresses from "../abi/LiquidityPoolFactoryAddresses.json";
 import { formatEther, isAddress } from "viem";
 import ActionBtn from "./low-level/ActionBtn";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MyPositions = ({ poolAddress, onHasPosition }) => {
+  const navigate = useNavigate();
   const { address } = useAccount();
   const chainId = useChainId();
   const factoryAddress = FactoryAddresses[chainId];
@@ -24,7 +27,14 @@ const MyPositions = ({ poolAddress, onHasPosition }) => {
 
   const closePosition = () => {};
 
-  const { removeLiquidity } = useRemoveLiquidity(poolAddress);
+  const { removeLiquidity, isPending, isSuccess } =
+    useRemoveLiquidity(poolAddress);
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/Dashboard");
+    }
+  }, [isSuccess]);
 
   // -----------------------
   // LP Balance
@@ -115,7 +125,7 @@ const MyPositions = ({ poolAddress, onHasPosition }) => {
 
   onHasPosition(true);
   return (
-    <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] mb-[10px] items-center cursor-pointer bg-[#121212] px-[12px] py-[6px] rounded-xl">
+    <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] mb-[10px] items-center bg-[#121212] p-[12px] rounded-2xl">
       {/* Token Pair */}
       <div className="flex items-center gap-[10px]">
         <div className="flex items-center gap-[10px] text-[24px]">
@@ -148,7 +158,12 @@ const MyPositions = ({ poolAddress, onHasPosition }) => {
       <div>${Number(formatEther(userShareTotal)).toFixed(2)}</div>
       <div>${Number(formatEther(liquidity)).toFixed(2)}</div>
       <div className="w-fit items-end">
-        <ActionBtn text="close" action={() => removeLiquidity(balance)} />
+        <ActionBtn
+          text={isPending ? "..." : "close"}
+          action={() => {
+            isPending ? {} : removeLiquidity(balance);
+          }}
+        />
       </div>
     </div>
   );

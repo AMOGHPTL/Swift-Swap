@@ -12,7 +12,7 @@ const Input = ({ token, amount, setAmount, title = "" }) => {
     : "0.00";
 
   return (
-    <div className="flex flex-col gap-[15px] px-[20px] py-[20px] border-[2px] border-gray-600 rounded-3xl">
+    <div className="flex flex-col gap-[15px] px-[20px] py-[20px] border-[1px] border-gray-700 rounded-3xl">
       {title && <p className="text-xl font-semibold text-gray-400">{title}</p>}
 
       <div className="flex justify-between gap-[40px]">

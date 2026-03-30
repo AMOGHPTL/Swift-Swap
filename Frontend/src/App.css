@@ -26,3 +26,46 @@ input[type="number"]::-webkit-inner-spin-button {
   animation: spin-180 2s ease-in-out infinite;
 }
 
+@keyframes shift-1 {
+  0%     { transform: translateX(0%); }    /* pos R */
+  16.67% { transform: translateX(125%); } /* swapped to M */
+  25%    { transform: translateX(125%); } /* hold */
+  41.67% { transform: translateX(0%); }   /* swapped back to R */
+  100%   { transform: translateX(0%); }   /* stays at R for rest */
+}
+
+.animate-shift-1 {
+  animation: shift-1 12s ease-in-out infinite;
+}
+
+/* m: swaps with r in phase 1&2, swaps with l in phase 3&4 */
+@keyframes shift-2 {
+  0%     { transform: translateX(0%); }    /* pos M */
+  16.67% { transform: translateX(-125%); } /* swapped to R */
+  25%    { transform: translateX(-125%); } /* hold */
+  41.67% { transform: translateX(0%); }    /* swapped back to M */
+  50%    { transform: translateX(0%); }    /* hold */
+  66.67% { transform: translateX(125%); }  /* swapped to L */
+  75%    { transform: translateX(125%); }  /* hold */
+  91.67% { transform: translateX(0%); }    /* swapped back to M */
+  100%   { transform: translateX(0%); }    /* hold → loop */
+}
+
+.animate-shift-2 {
+  animation: shift-2 12s ease-in-out infinite;
+}
+
+/* l: stays put in phase 1&2, swaps with m in phase 3&4 */
+@keyframes shift-3 {
+  0%     { transform: translateX(0%); }    /* pos L */
+  50%    { transform: translateX(0%); }    /* stays at L */
+  66.67% { transform: translateX(-125%); } /* swapped to M */
+  75%    { transform: translateX(-125%); } /* hold */
+  91.67% { transform: translateX(0%); }    /* swapped back to L */
+  100%   { transform: translateX(0%); }    /* hold → loop */
+}
+
+.animate-shift-3 {
+  animation: shift-3 12s ease-in-out infinite;
+}
+

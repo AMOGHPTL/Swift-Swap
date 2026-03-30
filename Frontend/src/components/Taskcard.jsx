@@ -1,6 +1,6 @@
 const Taskcard = ({ img, taskTitle, taskDescription }) => {
   return (
-    <div className="flex flex-col gap-[20px] rounded-3xl items-center justify-center bg-gray-400 w-[300px] p-[30px] cursor-pointer transition duration-150 hover:scale-110 hover:bg-gray-200">
+    <div className="flex flex-col h-full gap-[20px] rounded-3xl items-center justify-center bg-pink-300 w-[300px] p-[30px] cursor-default transition duration-150 hover:scale-110 hover:bg-pink-500">
       <div className="flex flex-col items-center justify-center">
         <img src={img} alt="" className="w-[60px]" />
       </div>

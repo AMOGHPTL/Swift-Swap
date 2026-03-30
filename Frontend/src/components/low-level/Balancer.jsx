@@ -40,7 +40,7 @@ const Balancer = ({
       />
       <div className="flex items-center justify-between">
         <p className="text-[#0c54bc]">{token0Percent}%</p>
-        <p className="text-[#ff37c7]">{token1Percent}%</p>
+        <p className="text-[#ff37c7]">{100n-token0Percent}%</p>
       </div>
     </div>
   );

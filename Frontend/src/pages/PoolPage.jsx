@@ -79,7 +79,7 @@ const PoolPage = () => {
                 <p>
                   {reserveToken0
                     ? `$${Number(formatEther(reserveToken0)).toFixed(2)}`
-                    : null}
+                    : "$0.00"}
                 </p>
               </div>
               <div className="w-[1px] h-[36px] bg-white/20" />
@@ -88,7 +88,7 @@ const PoolPage = () => {
                 <p>
                   {reserveToken1
                     ? `$${Number(formatEther(reserveToken1)).toFixed(2)}`
-                    : null}
+                    : "$0.00"}
                 </p>
               </div>
               <div className="w-[1px] h-[36px] bg-white/20" />

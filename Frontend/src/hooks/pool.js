@@ -163,7 +163,7 @@ export function useRemoveLiquidity(poolAddress) {
   const [hash, setHash] = useState(null);
 
   const { address: user } = useAccount();
-  const { writeContractAsync } = useWriteContract();
+  const { writeContractAsync, isPending } = useWriteContract();
 
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
     hash,
@@ -185,6 +185,7 @@ export function useRemoveLiquidity(poolAddress) {
     removeLiquidity,
     isConfirming,
     isSuccess,
+    isPending,
   };
 }
 
