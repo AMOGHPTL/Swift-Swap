@@ -15,6 +15,7 @@ import SwapArrow from "./low-level/SwapArrow";
 import { useGetTokenReserve, useSwap } from "../hooks/pool";
 import { formatEther, parseEther } from "viem";
 import lock from "../assets/lock.svg";
+import toast from "react-hot-toast";
 
 const SelectSwap = () => {
   const [sellToken, setsellToken] = useState("");
@@ -59,6 +60,9 @@ const SelectSwap = () => {
 
   useEffect(() => {
     if (isSuccess) {
+      toast.success(
+        `swapped ${Number(formatEther(sellTokenAmount)).toFixed(2)}${sellToken} for ${Number(formatEther(buyTokenAmount)).toFixed(2)}${buyToken}`,
+      );
       window.location.reload();
     }
   }, [isSuccess]);

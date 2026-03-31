@@ -20,6 +20,7 @@ import SwapArrow from "./low-level/SwapArrow";
 import lock from "../assets/lock.svg";
 import back from "../assets/back.svg";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const PoolSwap = ({ address }) => {
   const [sellToken, setSellToken] = useState("");
@@ -55,6 +56,9 @@ const PoolSwap = ({ address }) => {
 
   useEffect(() => {
     if (isSuccess) {
+      toast.success(
+        `swapped ${Number(formatEther(amountIn)).toFixed(2)} ${Tokens[sellToken]} for ${Number(formatEther(amountOut)).toFixed(2)} ${Tokens[buyToken]}`,
+      );
       navigate(`/Pool/${address}`);
     }
   }, [isSuccess]);

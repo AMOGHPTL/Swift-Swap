@@ -13,6 +13,7 @@ import { useAddLiquidity, useGetTokenReserve } from "../hooks/pool";
 import { useEffect, useState } from "react";
 import { parseEther } from "viem";
 import lock from "../assets/lock.svg";
+import toast from "react-hot-toast";
 
 const LiquidityPage = () => {
   const [amount0, setAmount0] = useState("");
@@ -46,6 +47,9 @@ const LiquidityPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
+      toast.success(
+        `Added ${Number(formatEther(amount0)).toFixed(2)}${Tokens[data.token0]} and ${Number(formatEther(amount1)).toFixed(2)}${Tokens[data.token1]}`,
+      );
       navigate("/ExplorePools");
     }
   }, [isSuccess]);

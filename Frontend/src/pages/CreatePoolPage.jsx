@@ -7,6 +7,7 @@ import PoolCard from "../components/low-level/PoolCard";
 import TokenName from "../abi/tokenAddressToName.json";
 import lock from "../assets/lock.svg";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const CreatePoolPage = () => {
   const cardano = "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9";
@@ -22,8 +23,8 @@ const CreatePoolPage = () => {
 
   const { createPool, isPending, isSuccess } = useCreatePool(factoryAddress);
 
-  const [token0, setToken0] = useState("cardano");
-  const [token1, setToken1] = useState("matic");
+  const [token0, setToken0] = useState("usdc");
+  const [token1, setToken1] = useState("usdt");
   const [fee, setFee] = useState(0n);
 
   const [token0IsOpen, setToken0IsOpen] = useState(false);
@@ -37,6 +38,7 @@ const CreatePoolPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
+      toast.success(`Pool ${token0}/${token1} created`);
       navigate("/ExplorePools");
     }
   }, [isSuccess]);

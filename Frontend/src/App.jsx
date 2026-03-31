@@ -10,10 +10,12 @@ import SwapPage from "./pages/SwapPage";
 import PoolPage from "./pages/PoolPage";
 import LiquidityPage from "./pages/LiquidityPage";
 import DashBoard from "./pages/Dashboard";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <div className="min">
+      <Toaster position="top-right" />
       <Navbar />
       <main className="px-[8%]">
         <Routes>

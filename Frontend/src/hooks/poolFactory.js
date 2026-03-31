@@ -1,19 +1,20 @@
 import LiquidityPoolFactory from "../abi/LiquidityPoolFactory.json";
-import {useReadContract} from "wagmi";
+import { useReadContract } from "wagmi";
 import { useWriteContract, useWaitForTransactionReceipt } from "wagmi";
 import { useState } from "react";
 
 export function useCreatePool(poolFactoryAddress) {
-  console.log("triggered useCreatePool...")
+  console.log("triggered useCreatePool...");
   const [hash, setHash] = useState(null);
 
   const { writeContractAsync, isPending } = useWriteContract();
 
-  const { isLoading: isConfirming, isSuccess } =
-    useWaitForTransactionReceipt({ hash });
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
+    hash,
+  });
 
   const createPool = async (token0, token1, fee) => {
-    console.log("creating new pool...")
+    console.log("creating new pool...");
     const txHash = await writeContractAsync({
       address: poolFactoryAddress,
       abi: LiquidityPoolFactory,
@@ -32,34 +33,33 @@ export function useCreatePool(poolFactoryAddress) {
   };
 }
 
+export function useGetPools(poolFactoryAddress, watch = true) {
+  console.log("calling useGetPools....");
+  const result = useReadContract({
+    address: poolFactoryAddress,
+    abi: LiquidityPoolFactory,
+    functionName: "getAllPools",
+    args: [],
+    query: {
+      enabled: !!poolFactoryAddress, // don't run if address missing
+      refetchInterval: watch ? 3000 : false, // auto refresh every 3s (optional)
+    },
+  });
 
-export function useGetPools(poolFactoryAddress, watch=true) {
-    console.log("calling useGetPools....")
-    const result = useReadContract({
-        address: poolFactoryAddress,
-        abi: LiquidityPoolFactory,
-        functionName: "getAllPools",
-        args: [],
-        query: {
-          enabled: !!poolFactoryAddress,   // don't run if address missing
-          refetchInterval: watch ? 3000 : false, // auto refresh every 3s (optional)
-        },
-    }) 
+  const pools = result.data ? result.data : null;
 
-    const pools = result.data?result.data:null;
-
-    return {
-        pools,
-        isLoading: result.isLoading,
-        error: result.error,
-        refetch: result.refetch
-    }
+  return {
+    pools,
+    isLoading: result.isLoading,
+    error: result.error,
+    refetch: result.refetch,
+  };
 }
 
 export function useGetPoolInfoWithPoolAddress(
   poolFactoryAddress,
   poolAddress,
-  watch = true
+  watch = true,
 ) {
   return useReadContract({
     address: poolFactoryAddress,
@@ -76,8 +76,8 @@ export function useGetPoolInfoWithPoolAddress(
 export function useGetTokenPair(
   poolFactoryAddress,
   tokenAddress,
-  watch = true
-){
+  watch = true,
+) {
   return useReadContract({
     address: poolFactoryAddress,
     abi: LiquidityPoolFactory,
@@ -87,11 +87,11 @@ export function useGetTokenPair(
       enabled: !!poolFactoryAddress && !!tokenAddress,
       refetchInterval: watch ? 3000 : false,
     },
-  })
+  });
 }
 
-export function useGetTokenPairKeys(poolFactoryAddress, watch=true){
-    return useReadContract({
+export function useGetTokenPairKeys(poolFactoryAddress, watch = true) {
+  return useReadContract({
     address: poolFactoryAddress,
     abi: LiquidityPoolFactory,
     functionName: "getTokenPairKeys",
@@ -100,11 +100,16 @@ export function useGetTokenPairKeys(poolFactoryAddress, watch=true){
       enabled: !!poolFactoryAddress,
       refetchInterval: watch ? 3000 : false,
     },
-  })
+  });
 }
 
-export function useGetPoolInfo(poolFactoryAddress, token0, token1, watch=true){
-   return useReadContract({
+export function useGetPoolInfo(
+  poolFactoryAddress,
+  token0,
+  token1,
+  watch = true,
+) {
+  return useReadContract({
     address: poolFactoryAddress,
     abi: LiquidityPoolFactory,
     functionName: "getPoolInfo",
@@ -113,6 +118,5 @@ export function useGetPoolInfo(poolFactoryAddress, token0, token1, watch=true){
       enabled: !!poolFactoryAddress && !!token0 && !!token1,
       refetchInterval: watch ? 3000 : false,
     },
-  })
+  });
 }
-

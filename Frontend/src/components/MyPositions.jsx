@@ -14,6 +14,7 @@ import { formatEther, isAddress } from "viem";
 import ActionBtn from "./low-level/ActionBtn";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const MyPositions = ({ poolAddress, onHasPosition }) => {
   const navigate = useNavigate();
@@ -25,13 +26,14 @@ const MyPositions = ({ poolAddress, onHasPosition }) => {
 
   const Tokens = getReverseTokens(TokenName);
 
-  const closePosition = () => {};
-
   const { removeLiquidity, isPending, isSuccess } =
     useRemoveLiquidity(poolAddress);
 
   useEffect(() => {
     if (isSuccess) {
+      toast.success(
+        `closed position ${Number(formatEther(userShareTotal)).toFixed(2)} recived`,
+      );
       navigate("/Dashboard");
     }
   }, [isSuccess]);

@@ -50,3 +50,11 @@ export function getAmountInFromAmountOut(
 
   return numerator / denominator + 1n;
 }
+
+export function getOtherTokenDepositAmount(
+  token0Amount,
+  token1Amount,
+  token0Input,
+) {
+  return (token0Amount * BigInt(token0Input)) / token1Amount;
+}
