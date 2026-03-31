@@ -1,66 +1,15 @@
-## Foundry
+# Swift-Swap An ERC20 DEX (Decentralized Exchange) like Uniswap and SushiSwap
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## a STAR ⭐ will be really appriciated
 
-Foundry consists of:
+### - Swap an ERC20 Token
+Users/Traders can trade tokens directly on the blockchain without the need for a centralized intermediary
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+### - Earn Yeilds on your Tokens
+The users can provide liquidity to the liquidity pools to earn rewards and incentives in the form of liquidity tokens which is aka Yeild Farming
 
-## Documentation
+### - Create Customized Liquidity Pools
+You can pick a FEE, and a pair of Tokens to create a pool of your own
 
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
-```
-
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+### - Uses Constant Product AMM
+It is an Automated Market Maker for transparent and relevent pricing of Tokens
