@@ -2,7 +2,7 @@
 
 ## a STAR ⭐ will be really appriciated
 
-[![DEX](./Swift-Swap.gif)]
+![DEX](./Swift-Swap.gif)
 
 ### - Swap an ERC20 Token
 
