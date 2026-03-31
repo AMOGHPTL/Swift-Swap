@@ -2,7 +2,9 @@
 
 ## a STAR ⭐ will be really appriciated
 
-![DEX](./Swift-Swap.gif)
+![DEX](./Swift-Swap.gif)(https://youtu.be/fF9PmGCiypw)
+
+[See Live Demo of the dApp](https://youtu.be/fF9PmGCiypw)
 
 ### - Swap an ERC20 Token
 
