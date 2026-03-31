@@ -2,7 +2,7 @@
 
 ## a STAR ⭐ will be really appriciated
 
-![DEX](./Swift-Swap.gif)(https://youtu.be/fF9PmGCiypw)
+![DEX][(./Swift-Swap.gif)](https://youtu.be/fF9PmGCiypw)
 
 [See how this dapp works](https://youtu.be/fF9PmGCiypw)
 
