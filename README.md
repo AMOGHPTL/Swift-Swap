@@ -4,7 +4,7 @@
 
 ![DEX](./Swift-Swap.gif)(https://youtu.be/fF9PmGCiypw)
 
-[See Live Demo of the dApp](https://youtu.be/fF9PmGCiypw)
+[See how this dapp works](https://youtu.be/fF9PmGCiypw)
 
 ### - Swap an ERC20 Token
 
